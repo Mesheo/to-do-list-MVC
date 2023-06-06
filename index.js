@@ -1,19 +1,44 @@
 const http = require("http");
+const ejs = require("ejs");
+const path = require("path");
 const fs = require("fs");
+
 let server;
+const port = 3000;
+const data = {};
 function startServer() {
     server = http.createServer((req, res) => {
         if (req.url === "/") {
-            res.writeHead(200, { "Content-Type": "text/html" });
-            res.end("<h1>Hello world</h1>");
+            ejs.renderFile("views/index.ejs", { data }, function (err, str) {
+                if (err) {
+                    res.writeHead(500, { "Content-Type": "text/plain" });
+                    res.end(`Server error: ${err}`);
+                } else {
+                    res.writeHead(200, { "Content-Type": "text/html" });
+                    res.end(str);
+                }
+            });
+        } else if (req.url.match(".css$")) {
+            const cssPath = path.join(__dirname, "public", req.url);
+            const fileStream = fs.createReadStream(cssPath, "UTF-8");
+            res.writeHead(200, { "Content-Type": "text/css" });
+            fileStream.pipe(res);
+        } else if (req.url.match(".js$")) {
+            const scriptPath = path.join(__dirname, "public", req.url);
+            const fileStream = fs.createReadStream(scriptPath, "UTF-8");
+            console.log(req.url)
+            res.writeHead(200, { "Content-Type": "application/javascript" });
+            fileStream.pipe(res);
         }
     });
 
-    server.listen(3000, () => {
-        console.log("Server is running on port 3000");
+    server.on("error", (e) => {
+        console.error(`Server error: ${e}`);
+    });
+
+    server.listen(port, () => {
+        console.log(`Server is running on port http://localhost:${port}`);
     });
 }
-
-
 
 startServer();

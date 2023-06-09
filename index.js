@@ -2,12 +2,24 @@ const http = require("http");
 const ejs = require("ejs");
 const path = require("path");
 const fs = require("fs");
+const Route = require("./routes/route.js");
 
-let server;
 const port = 3000;
 const data = {};
+
 function startServer() {
-    server = http.createServer((req, res) => {
+    const roteador = new Route()
+
+    const server = http.createServer((req, res) => {
+        console.log("Função de callBack chamada");
+        roteador.rotear(req, res)
+    });
+
+    /*
+    const server = http.createServer((req, res) => {
+        console.log("Função de callBack chamada");
+        console.log(rota.mostrar());
+
         if (req.url === "/") {
             ejs.renderFile("views/index.ejs", { data }, function (err, str) {
                 if (err) {
@@ -26,11 +38,12 @@ function startServer() {
         } else if (req.url.match(".js$")) {
             const scriptPath = path.join(__dirname, "public", req.url);
             const fileStream = fs.createReadStream(scriptPath, "UTF-8");
-            console.log(req.url)
+            console.log(req.url);
             res.writeHead(200, { "Content-Type": "application/javascript" });
             fileStream.pipe(res);
         }
     });
+    */
 
     server.on("error", (e) => {
         console.error(`Server error: ${e}`);

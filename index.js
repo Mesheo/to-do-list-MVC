@@ -2,17 +2,17 @@ const http = require("http");
 const ejs = require("ejs");
 const path = require("path");
 const fs = require("fs");
-const Route = require("./routes/route.js");
+const rotas = require("./routes/route.js");
 
 const port = 3000;
 const data = {};
 
 function startServer() {
-    const roteador = new Route()
+    // const roteador = new Route();
 
     const server = http.createServer((req, res) => {
         console.log("Função de callBack chamada");
-        roteador.rotear(req, res)
+        rotas[req.url](req, res);
     });
 
     server.on("error", (e) => {

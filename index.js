@@ -15,6 +15,13 @@ function startServer() {
         roteador.rotear(req, res)
     });
 
+    server.on("error", (e) => {
+        console.error(`Server error: ${e}`);
+    });
+
+    server.listen(port, () => {
+        console.log(`Server is running on port http://localhost:${port}`);
+    });
     /*
     const server = http.createServer((req, res) => {
         console.log("Função de callBack chamada");
@@ -44,14 +51,6 @@ function startServer() {
         }
     });
     */
-
-    server.on("error", (e) => {
-        console.error(`Server error: ${e}`);
-    });
-
-    server.listen(port, () => {
-        console.log(`Server is running on port http://localhost:${port}`);
-    });
 }
 
 startServer();

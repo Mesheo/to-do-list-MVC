@@ -3,18 +3,25 @@ const fs = require("fs");
 
 class Route {
     rotear(requisicao, resposta) {
-        this.deuRui = false;
-        this.erro = "";
         this.req = requisicao;
         this.res = resposta;
         console.log("OPA peguei uma requisição aqui da url: ", this.req.url);
 
+        if (this.req.url == "/") {
+            console.log(
+                "É entramos na url / pela ",
+                this.contadorDaURLbarra,
+                "vez"
+            );
+            this.res.write("AQUI EH NOSSO WEBSITE");
+            this.res.end();
+        }
         if (this.req.url == "/favicon.ico") {
             const iconPath = path.join(
                 __dirname,
                 "..",
                 "public",
-                "favicon.icco"
+                "favicon.ico"
             );
             fs.readFile(iconPath, (err, data) => {
                 if (err) {
@@ -29,9 +36,6 @@ class Route {
                     this.res.end(data);
                 }
             });
-        } else {
-            this.res.write("website");
-            this.res.end();
         }
     }
 }

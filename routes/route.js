@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const ejs = require("ejs");
+const querystring = require("querystring");
 
 function servirBrowser(
     objetoDeRequisicao,
@@ -10,11 +11,13 @@ function servirBrowser(
 ) {
     if (objetoDeRequisicao.method == "POST") {
         console.log("CADE OS DADOS!!!!!!!!!!");
-        objetoDeRequisicao.on("data", (inputData) => {
-            console.log("Ta aqui: ", inputData.toString());
-        });       
-        objetoDeResposta.end('Dados do formulário recebidos');
-
+        objetoDeRequisicao.on("data", (data) => {
+            inputData = data.toString();
+            console.log("Ta aqui: ", querystring.parse(inputData));
+        });
+        objetoDeResposta.end(`
+        <script>alert('Obrigado por enviar o formulario!');</script>
+    `);
     } else if (objetoDeRequisicao.method == "GET") {
         filePath = path.join(__dirname, "..", caminhoProArquivo);
         fs.readFile(filePath, (err, data) => {

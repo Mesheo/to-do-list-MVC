@@ -1,6 +1,6 @@
 const http = require("http");
 const rotas = require("./routes/route.js");
-const port = 3000;
+const port = 3005;
 
 let vezes = 0;
 

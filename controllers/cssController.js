@@ -1,8 +1,9 @@
-const servirBrowser = require("../utils/servirBrowser.js")
+const readFile = require("../utils/readfile.js");
 
 async function css(req, res) {
     if (req.method == "GET") {
-        servirBrowser(res, "public/style.css", "text/css");
+        const data = await readFile("public/style.css");
+        return { contentType: "text/css", response: data };
     }
 }
 module.exports = css;

@@ -1,8 +1,9 @@
-const servirBrowser = require("../utils/servirBrowser.js");
+const readFile = require("../utils/readfile.js");
 
 async function script(req, res) {
     if (req.method == "GET") {
-        servirBrowser(res, "public/script.js", "application/javascript");
+        const data = await readFile("public/script.js");
+        return { contentType: "application/javascript", response: data };
     }
 }
 module.exports = script;

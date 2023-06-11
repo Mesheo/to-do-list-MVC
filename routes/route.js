@@ -1,28 +1,37 @@
 const path = require("path");
 const fs = require("fs");
+const ejs = require("ejs");
+
+function servirBrowser(objetoDeResposta, caminhoProArquivo, contentType) {
+    filePath = path.join(__dirname, "..", caminhoProArquivo);
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            console.log("Deu ruim lendo arquivo: ", err);
+            objetoDeResposta.end();
+        } else {
+            objetoDeResposta.writeHead(200, { "Content-type": contentType });
+            objetoDeResposta.end(data);
+            console.log(
+                `Cabeçalho 'Content-Type' após servir o arquivo ${caminhoProArquivo}`,
+                objetoDeResposta.getHeader("Content-Type")
+            );
+        }
+    });
+}
 
 const rotas = {
     "/": (req, res) => {
-        console.log("É entramos na url / pela ", "vez");
-        res.write("AQUI EH NOSSO WEBSITE");
-        res.end();
+        servirBrowser(res, "views/index.ejs", "text/html");
     },
     "/favicon.ico": (req, res) => {
-        const iconPath = path.join(__dirname, "..", "public", "favicon.ico");
-        fs.readFile(iconPath, (err, data) => {
-            if (err) {
-                console.log("Deu ruim lendo arquivo: ", err);
-                res.writeHead(500, {
-                    "Content-Type": "text/plain",
-                });
-                res.end();
-                return;
-            } else {
-                res.writeHead(200, { "Content-Type": "image/x-icon" });
-                res.end(data);
-            }
-        });
+        servirBrowser(res, "public/favicon.ico", "image/x-icon");       
     },
+    "/style.css": (req, res) => {
+        servirBrowser(res, "public/style.css", "text/css");       
+    },
+    "/script.js": (req, res) => {
+        servirBrowser(res, "public/script.js", "application/javascript");       
+    }
 };
 
 module.exports = rotas;

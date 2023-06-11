@@ -1,17 +1,16 @@
 const http = require("http");
-const ejs = require("ejs");
-const path = require("path");
-const fs = require("fs");
 const rotas = require("./routes/route.js");
-
 const port = 3000;
-const data = {};
+
+let vezes = 0;
+
 
 function startServer() {
-    // const roteador = new Route();
-
     const server = http.createServer((req, res) => {
-        console.log("Função de callBack chamada");
+        vezes += 1;
+        console.log(`\n*___ FUNÇÃO DE CALLBACK CHAMADA PELA ${vezes}° VEZ ___*`);
+        console.log("-- Método da solicitação: ", req.method);
+        console.log("-- URL da chamada: ", req.url);
         rotas[req.url](req, res);
     });
 
@@ -22,21 +21,12 @@ function startServer() {
     server.listen(port, () => {
         console.log(`Server is running on port http://localhost:${port}`);
     });
-    /*
-    const server = http.createServer((req, res) => {
-        console.log("Função de callBack chamada");
-        console.log(rota.mostrar());
+}
+startServer();
 
-        if (req.url === "/") {
-            ejs.renderFile("views/index.ejs", { data }, function (err, str) {
-                if (err) {
-                    res.writeHead(500, { "Content-Type": "text/plain" });
-                    res.end(`Server error: ${err}`);
-                } else {
-                    res.writeHead(200, { "Content-Type": "text/html" });
-                    res.end(str);
-                }
-            });
+/*
+    const server = http.createServer((req, res) => {
+    
         } else if (req.url.match(".css$")) {
             const cssPath = path.join(__dirname, "public", req.url);
             const fileStream = fs.createReadStream(cssPath, "UTF-8");
@@ -51,6 +41,3 @@ function startServer() {
         }
     });
     */
-}
-
-startServer();

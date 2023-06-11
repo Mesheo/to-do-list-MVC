@@ -1,23 +1,46 @@
+// indexController.js
 const querystring = require("querystring");
-const readFile = require("../utils/readfile.js");
-
+const ejs = require("ejs");
 
 async function index(req, res) {
-    if (req.method == "GET") {
-        const data = await readFile("views/index.ejs");
-        return { contentType: "text/html", response: data };
-    } else if (req.method == "POST") {
-        req.on("data", (data) => {
-            inputData = data.toString();
-            console.log("-- DADOS da chamada: ", querystring.parse(inputData));
-        });
-        const response = `
-            <script>
-                alert('Obrigado por enviar o formulario!');
-                window.location.href="/";
-            </script>
-        `;
-        return { contentType: "text/html", response };
-    }
+    return new Promise((resolve, reject) => {
+        if (req.method == "GET") {
+            ejs.renderFile(
+                "views/index.ejs",
+                {},
+                {},
+                function (err, str) {
+                    if (err){
+                        reject(err);
+                    }
+                    else{
+                        resolve({ contentType: "text/html", response: str });
+                    }
+                }
+            );
+        } else if (req.method == "POST") {
+            let inputData = "";
+            req.on("data", (data) => {
+                inputData += data.toString();
+            });
+            req.on("end", () => {
+                const formData = querystring.parse(inputData);
+                console.log("-- DADOS da chamada: ", formData);
+                ejs.renderFile(
+                    "views/index.ejs",
+                    { user_text: formData.dados_do_formulario },
+                    {},
+                    function (err, str) {
+                        if (err){
+                            reject(err);
+                        }
+                        else{
+                            resolve({ contentType: "text/html", response: str });
+                        }
+                    }
+                );
+            });
+        }
+    });
 }
 module.exports = index;

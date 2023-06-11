@@ -8,7 +8,7 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1>Fala tropa</h1>
+    <h1><%= typeof user_text !== 'undefined' ? `Bem vindo ${user_text}!` : 'Bem vindo' %></h1>
     <form action="/" method="POST">
         
         <input type="text" name="dados_do_formulario">

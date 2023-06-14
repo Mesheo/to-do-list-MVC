@@ -19,7 +19,6 @@ async function handlePostRequest(req, res) {
             const formData = querystring.parse(inputData);
             console.log("-- DADOS da chamada: ", formData);
             try {
-                console.log("vou tentar re renderizar");
                 const str = await ejs.renderFile("views/index.ejs", {
                     user_text: formData.dados_do_formulario,
                 });

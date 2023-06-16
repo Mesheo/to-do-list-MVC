@@ -8,12 +8,23 @@ async function index(req, res) {
         return await handlePostRequest(req, res);
     }
 }
-
 module.exports = index;
 
 async function handleGetRequest() {
     const htmlRendered = await viewRenderer.renderIndexView({});
     return { contentType: "text/html", responseData: htmlRendered };
+}
+
+async function handlePostRequest(req, res) {
+    return new Promise(async (resolve, reject) => {
+        const reqInput = await requestMiddleware(req);
+        try {
+            const htmlRendered = await viewRenderer.renderIndexView(reqInput);
+            resolve({ contentType: "text/html", responseData: htmlRendered });
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
 
 function requestMiddleware(request) {
@@ -29,14 +40,5 @@ function requestMiddleware(request) {
     });
 }
 
-async function handlePostRequest(req, res) {
-    return new Promise(async (resolve, reject) => {
-        const reqInput = await requestMiddleware(req);
-        try {
-            const htmlRendered = await viewRenderer.renderIndexView(reqInput);
-            resolve({ contentType: "text/html", responseData: htmlRendered });
-        } catch (e) {
-            reject(err);
-        }
-    });
-}
+
+

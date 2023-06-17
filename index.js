@@ -1,19 +1,19 @@
 const http = require("http");
 const rotas = require("./routes/route.js");
 const connectToDb = require("./database/db.js");
-const { response } = require("express");
 const port = 3000;
 
 let vezes = 0;
 connectToDb();
 
-async function responseMiddleware(
-    responseObject,
-    { contentType, responseData }
-) {
-    responseObject.setHeader("Content-type", contentType);
-    // responseObject.write(responseData)
-    responseObject.end(responseData);
+async function responseMiddleware(responseObject,  { statusCode, Location="", ContentType="", responseData }) {
+    if (statusCode && Location) {
+        responseObject.writeHead(statusCode, { 'Location': Location });
+        responseObject.end();
+    } else {
+        responseObject.setHeader("Content-type", ContentType);
+        responseObject.end(responseData);
+    }
 }
 
 function startServer() {
@@ -23,8 +23,8 @@ function startServer() {
             `\n---> Função de callback chamada pela ${vezes}° vez`,
             `| Método da solicitação: ${req.method} | URL da chamada: ${req.url}`
         );
-        const { contentType, responseData } = await rotas[req.url](req, res);
-        responseMiddleware(res, { contentType, responseData });
+        const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req, res);
+        responseMiddleware(res, { statusCode, Location, ContentType, responseData });
     });
 
     server.on("error", (e) => {

@@ -12,8 +12,16 @@ async function index(req, res) {
 module.exports = index;
 
 async function handleGetRequest() {
-    const htmlRendered = await viewRenderer.renderIndexView({});
-    return { contentType: "text/html", responseData: htmlRendered };
+    try {
+        const tasksList = await taskModel.find();
+        console.log("ABRIU o site peguei as tasks: ", tasksList);
+
+        const htmlRendered = await viewRenderer.renderIndexView(tasksList);
+        return { ContentType: "text/html", responseData: htmlRendered };
+    } catch (e) {
+        console.log("Algo deu errado pegando tasks do banco: ", e);
+        return { statusCode: 500, responseData: e };
+    }
 }
 
 function requestMiddleware(request) {
@@ -24,7 +32,9 @@ function requestMiddleware(request) {
         });
         request.on("end", () => {
             inputData = querystring.parse(inputData);
-            inputData.isCheck ? (inputData.isCheck = true) : (inputData.isCheck = false);
+            inputData.isCheck
+                ? (inputData.isCheck = true)
+                : (inputData.isCheck = false);
             resolve(inputData);
         });
     });
@@ -39,8 +49,7 @@ async function handlePostRequest(req, res) {
                 marcado: reqInput.isCheck,
             });
             console.log("Nova tarefa CRIADA : ", newTask);
-            const htmlRendered = await viewRenderer.renderIndexView(reqInput);
-            resolve({ contentType: "text/html", responseData: htmlRendered });
+            resolve({ statusCode: 302, Location: "/" });
         } catch (e) {
             console.log("Azedou: ", e);
             reject(e);

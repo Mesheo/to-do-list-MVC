@@ -8,14 +8,18 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1><%= typeof user_text !== 'undefined' ? `Bem vindo ${user_text}!` : 'Bem vindo' %></h1>
+    <h1>Bem vindo! </h1>
     <form action="/" method="POST">
         
         <input type="text" name="descricao_da_tarefa">
         <input type="checkbox" name="isCheck" value=boolean>
         <input type="submit" value="Adicionar tarefa">
 
-      </form>
+    </form>
+    <h2>Tasks criadas: </h2>
+        <%  for(let i = 0; i<tasksList.length; i++) { %>
+            <h3> Tarefa <%= i %> : <%= tasksList[i].descricao %> ! Foi feita? <%= tasksList[i].marcado %> </h3>
+        <% } %>
     <script src="script.js"></script> 
 </body>
 </html>

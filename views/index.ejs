@@ -8,18 +8,27 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1>Bem vindo! </h1>
-    <form action="/create" method="POST">
-        
-        <input type="text" name="descricao_da_tarefa">
-        <input type="checkbox" name="isCheck" value=boolean>
-        <input type="submit" value="Adicionar tarefa">
+    <header>
+        <h1>Bem vindo! </h1>
+        <form action="/create" method="POST"> 
+            <input type="text" name="descricao_da_tarefa" id="task" placeholder="Insira uma tarefa">
+            <button id="addButton" type="submit">Adicionar</button>
+        </form>
+    </header>
 
-    </form>
-    <h2>Tasks criadas: </h2>
-        <%  for(let i = 0; i<tasksList.length; i++) { %>
-            <h3> Tarefa <%= i %> : <%= tasksList[i].descricao %> ! Foi feita? <%= tasksList[i].marcado %> </h3>
-        <% } %>
+    <section id="tasks">
+        <ul>
+            <%  for(let i = 0; i<tasksList.length; i++) { %>
+                <li> 
+                    <%= tasksList[i].descricao %> 
+                    <input type="checkbox" name="isCheck" value=boolean <% if(tasksList[i].marcado) { %> checked <% } %> >
+                    <a href="">Editar</a>
+                    <a href="">Apagar</a>
+                </li>
+            <% } %>
+        </ul>
+    </section>
+  
     <script src="script.js"></script> 
 </body>
 </html>

@@ -6,7 +6,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
     },
     marcado: {
-        type: String,
+        type: Boolean,
     },
     date: {
         type: Date,

@@ -23,7 +23,7 @@ function startServer() {
             `\n---> Função de callback chamada pela ${vezes}° vez`,
             `| Método da solicitação: ${req.method} | URL da chamada: ${req.url}`
         );
-        const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req, res);
+        const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req);
         responseMiddleware(res, { statusCode, Location, ContentType, responseData });
     });
 
@@ -35,4 +35,5 @@ function startServer() {
         console.log(`Servidor rodando na porta: http://localhost:${port}`);
     });
 }
+
 startServer();

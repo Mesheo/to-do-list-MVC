@@ -6,9 +6,12 @@ const port = 3000;
 let vezes = 0;
 connectToDb();
 
-async function responseMiddleware(responseObject,  { statusCode, Location="", ContentType="", responseData }) {
+async function responseMiddleware(
+    responseObject,
+    { statusCode, Location = "", ContentType = "", responseData }
+) {
     if (statusCode && Location) {
-        responseObject.writeHead(statusCode, { 'Location': Location });
+        responseObject.writeHead(statusCode, { Location: Location });
         responseObject.end();
     } else {
         responseObject.setHeader("Content-type", ContentType);
@@ -23,8 +26,31 @@ function startServer() {
             `\n---> Função de callback chamada pela ${vezes}° vez`,
             `| Método da solicitação: ${req.method} | URL da chamada: ${req.url}`
         );
-        const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req);
-        responseMiddleware(res, { statusCode, Location, ContentType, responseData });
+        let statusCode, Location, ContentType, responseData;
+
+        if(req.url.includes("/style.css")){
+            ({ statusCode, Location, ContentType, responseData } = await rotas["/style.css"]());
+        }
+        else if (req.url.includes("/editar/")) {
+            console.log(
+                "ENTRAMOS NO IF LEGAL: ",
+                req.url.replace("/editar", "")
+            );
+            ({ statusCode, Location, ContentType, responseData } = await rotas[
+                "/editar"
+            ](req.url.replace("/editar", "")));
+        } else {
+            ({ statusCode, Location, ContentType, responseData } = await rotas[
+                req.url
+            ](req));
+        }
+
+        responseMiddleware(res, {
+            statusCode,
+            Location,
+            ContentType,
+            responseData,
+        });
     });
 
     server.on("error", (e) => {

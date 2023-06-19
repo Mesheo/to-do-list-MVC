@@ -2,6 +2,22 @@ const querystring = require("querystring");
 const viewRenderer = require("../views/viewRenderer");
 const taskModel = require("../models/Task");
 
+
+//  const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req);
+
+
+async function editTask(id) {
+    console.log("OLHa a porra da requisicaokkkkk", id)
+    const statusCode =200;
+    const ContentType= "text/html";
+    let responseData;
+
+    responseData = await viewRenderer.renderIndexView(id)
+
+    return {responseData, statusCode}
+
+}
+
 async function getAllTasks() {
     try {
         const tasksList = await taskModel.find();
@@ -35,11 +51,12 @@ async function createTask(req, res) {
 module.exports = {
     getAllTasks,
     createTask,
+    editTask,
 };
 
 function requestMiddleware(request) {
     return new Promise((resolve, reject) => {
-        try{
+        try {
             let inputData = "";
             request.on("data", (data) => {
                 inputData += data.toString();
@@ -51,10 +68,9 @@ function requestMiddleware(request) {
                     : (inputData.isCheck = false);
                 resolve(inputData);
             });
-        }
-        catch(e){
-            console.log("Algo deu errado lendo o input: ", e)
-            reject(e)
+        } catch (e) {
+            console.log("Algo deu errado lendo o input: ", e);
+            reject(e);
         }
     });
 }

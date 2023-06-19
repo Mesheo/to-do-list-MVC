@@ -1,12 +1,13 @@
 const querystring = require("querystring");
-const viewRenderer = require("../views/viewRenderer");
+const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
 
 //  const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req);
 
 
-async function editTask(id) {
+async function editTask(req) {
+    const id = req.url.replace("/editar/", "")
     console.log("OLHa a porra da requisicaokkkkk", id)
     const statusCode =200;
     const ContentType= "text/html";

@@ -13,7 +13,7 @@
 
         <section id="taskUpdate">
             <h1>Atualize a descricao da task: </h1>
-            <form action="/update" method="POST"> 
+            <form action="/editar/<%= tasksList %>" method="POST"> 
                 <input type="text" name="descricao_da_tarefa" id="task" value= <%=tasksList %>>
                 <button id="addButton" type="submit">Atualizar</button>
             </form>

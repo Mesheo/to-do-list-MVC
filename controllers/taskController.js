@@ -2,21 +2,25 @@ const querystring = require("querystring");
 const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
-
-//  const { statusCode, Location, ContentType, responseData } = await rotas[req.url](req);
-
-
 async function editTask(req) {
-    const id = req.url.replace("/editar/", "")
-    console.log("OLHa a porra da requisicaokkkkk", id)
-    const statusCode =200;
-    const ContentType= "text/html";
+    const taskId = req.url.replace("/editar/", "");
+    let reqInput = await requestMiddleware(req);
+
+    if (reqInput?.descricao_da_tarefa) {
+        reqInput = {
+            descricao: reqInput.descricao_da_tarefa,
+            marcado: reqInput.isCheck,
+        };
+        const updateTask = await taskModel.updateOne({ _id: taskId }, reqInput);
+        console.log("Task UPDATED: ", updateTask);
+        return { statusCode: 302, Location: "/" };
+    }
+    const statusCode = 200;
+    const ContentType = "text/html";
     let responseData;
 
-    responseData = await viewRenderer.renderIndexView(id)
-
-    return {responseData, statusCode}
-
+    responseData = await viewRenderer.renderIndexView(taskId);
+    return { responseData, statusCode, ContentType };
 }
 
 async function getAllTasks() {

@@ -3,7 +3,7 @@ const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
 async function editTask(req) {
-    const taskId = req.url.replace("/editar/", "");
+    const taskId = req.url.replace("/edit/", "");
     let reqInput = await requestMiddleware(req);
 
     if (reqInput?.descricao_da_tarefa) {
@@ -53,10 +53,21 @@ async function createTask(req, res) {
     });
 }
 
+async function deleteTask(req) {
+    const taskId = req.url.replace("/delete/", "");
+    console.log("Vou apagar a task de id: ", taskId);
+
+    const deletedTask = await taskModel.deleteOne({ _id: taskId });
+    console.log("Task DELETED: ", deletedTask);
+    return { statusCode: 302, Location: "/" };
+
+}
+
 module.exports = {
     getAllTasks,
     createTask,
     editTask,
+    deleteTask,
 };
 
 function requestMiddleware(request) {

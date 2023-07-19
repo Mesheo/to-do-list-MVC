@@ -13,7 +13,9 @@
 
         <section id="taskUpdate">
             <h1>Atualize a descricao da task: </h1>
-            <form action="/edit/<%= tasksList %>" method="POST"> 
+
+            <form method="POST" action="/task/<%= tasksList %>">
+                <input type="hidden" name="_method" value="PUT">
                 <input type="text" name="descricao_da_tarefa" id="task" value= <%=tasksList %>>
                 <button id="addButton" type="submit">Atualizar</button>
             </form>
@@ -35,8 +37,12 @@
                     <li> 
                         <%= tasksList[i].descricao %> 
                         <input type="checkbox" name="isCheck" value=boolean <% if(tasksList[i].marcado) { %> checked <% } %> >
-                        <a href="/edit/<%= tasksList[i]._id %>">edit</a>
-                        <a href="/delete/<%= tasksList[i]._id %> ">Apagar</a>
+                        <a href="/task/<%= tasksList[i]._id %>">Editar</a>
+
+                        <form method="POST" action="/task/<%= tasksList[i]._id %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="submit" value="Apagar">
+                        </form>
                     </li>
                 <% } %>
             </ul>

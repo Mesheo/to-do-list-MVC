@@ -2,16 +2,18 @@ const querystring = require("querystring");
 const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
-async function editTask(req) {
-    const taskId = req.url.replace("/edit/", "");
-    let reqInput = await requestMiddleware(req);
+async function editTask(body) {
+    const { taskId } = body;
 
-    if (reqInput?.descricao_da_tarefa) {
-        reqInput = {
-            descricao: reqInput.descricao_da_tarefa,
-            marcado: reqInput.isCheck,
+    if (body?.descricao_da_tarefa) {
+        updateParams = {
+            descricao: body.descricao_da_tarefa,
+            marcado: body.isCheck,
         };
-        const updateTask = await taskModel.updateOne({ _id: taskId }, reqInput);
+        const updateTask = await taskModel.updateOne(
+            { _id: taskId },
+            updateParams
+        );
         console.log("Task UPDATED: ", updateTask);
         return { statusCode: 302, Location: "/" };
     }
@@ -36,13 +38,12 @@ async function getAllTasks() {
     }
 }
 
-async function createTask(req, res) {
+async function createTask(body) {
     return new Promise(async (resolve, reject) => {
-        const reqInput = await requestMiddleware(req);
         try {
             const newTask = await taskModel.create({
-                descricao: reqInput.descricao_da_tarefa,
-                marcado: reqInput.isCheck,
+                descricao: body.descricao_da_tarefa,
+                marcado: body.isCheck,
             });
             console.log("Nova tarefa CRIADA : ", newTask);
             resolve({ statusCode: 302, Location: "/" });
@@ -53,14 +54,14 @@ async function createTask(req, res) {
     });
 }
 
-async function deleteTask(req) {
-    const taskId = req.url.replace("/delete/", "");
+async function deleteTask(body) {
+    const taskId = body.taskId;
     console.log("Vou apagar a task de id: ", taskId);
-
+    
     const deletedTask = await taskModel.deleteOne({ _id: taskId });
     console.log("Task DELETED: ", deletedTask);
-    return { statusCode: 302, Location: "/" };
 
+    return { statusCode: 302, Location: "/" };
 }
 
 module.exports = {

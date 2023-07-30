@@ -24,22 +24,23 @@
     <% } else { %> 
 
         <header>
-            <h1>Bem vindo! </h1>
+            <h1>Simple To-Do List! </h1>
             <form action="/create" method="POST"> 
                 <input type="text" name="descricao_da_tarefa" id="task" placeholder="Insira uma tarefa">
                 <button id="addButton" type="submit">Adicionar</button>
             </form>
         </header>
+        <div class="box"></div>
 
         <section id="tasksList">
             <ul>
                 <%  for(let i = 0; i<tasksList.length; i++) { %>
                     <li> 
                         <%= tasksList[i].descricao %> 
-                        <input type="checkbox" name="isCheck" value=boolean <% if(tasksList[i].marcado) { %> checked <% } %> >
-                        <a href="/task/<%= tasksList[i]._id %>">Editar</a>
+                        <input class="li_item" type="checkbox" name="isCheck" value=boolean <% if(tasksList[i].marcado) { %> checked <% } %> >
+                        <a class="li_item" href="/task/<%= tasksList[i]._id %>">Editar</a>
 
-                        <form method="POST" action="/task/<%= tasksList[i]._id %>">
+                        <form class="li_item" method="POST" action="/task/<%= tasksList[i]._id %>">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="submit" value="Apagar">
                         </form>

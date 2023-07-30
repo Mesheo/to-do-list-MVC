@@ -1,6 +1,38 @@
 h1 {
     color: rgb(21, 0, 255);
 }
+@font-face {
+    font-family: techFont;
+    src: url(../fonts/VCR_OSD_MONO_1.001.ttf);
+}
+
 body {
+    font-family: techFont;
     background-color: white;
 }
+
+li {
+    font-family: techFont;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.li_item {
+    margin-right: 100px;
+}
+
+.box {
+    height: 70px;
+    width: 70px;
+    padding: 20px;
+    border: 10px solid black;
+    background-color: blue;
+    margin: 50px;
+}
+
+/* 
+.container {
+    display: flex;
+    width: 25em;
+} */

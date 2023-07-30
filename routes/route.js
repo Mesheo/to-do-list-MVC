@@ -7,6 +7,7 @@ const {
 const favicon = require("../controllers/faviconController");
 const css = require("../controllers/cssController");
 const script = require("../controllers/scriptController");
+const font = require("../controllers/fontController");
 const querystring = require("querystring");
 
 async function roteador(req) {
@@ -22,13 +23,15 @@ async function roteador(req) {
     } else if (method === "GET") {
         if (req.url.includes("/style.css")) {
             return await css();
+        } else if (req.url.includes("/VCR_OSD_MONO_1.001.ttf")) {
+            return await font();
         } else if (req.url.includes("/favicon.ico")) {
             return await favicon();
         } else if (req.url === "/script.js") {
             return await script();
         } else if (req.url === "/") {
             return await getAllTasks(req);
-        }else if (req.url.includes("/task/")) {
+        } else if (req.url.includes("/task/")) {
             return await editTask(body);
         }
     }
@@ -49,8 +52,8 @@ function requestMiddleware(request) {
                 body = querystring.parse(body);
                 body.isCheck ? (body.isCheck = true) : (body.isCheck = false);
                 method = body._method ?? request.method;
-                if (request.url.includes("/task/")){
-                    body.taskId = request.url.replace("/task/", "")
+                if (request.url.includes("/task/")) {
+                    body.taskId = request.url.replace("/task/", "");
                 }
 
                 resolve({ body, method });

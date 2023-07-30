@@ -1,23 +1,41 @@
-h1 {
-    color: rgb(21, 0, 255);
-}
 @font-face {
     font-family: techFont;
     src: url(../fonts/VCR_OSD_MONO_1.001.ttf);
+}
+
+.taskItem{
+    padding-left: 20px;
+    height: 80px;
+    border: 1px solid black;
+    margin: 10px;
+    justify-content: left;
+
+}
+.taskItem input,
+.taskItem a,
+.taskItem button {
+    margin-right: 100px;  
+}
+
+header{
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    color: black;
 }
 
 body {
     font-family: techFont;
     background-color: white;
 }
-
 li {
     font-family: techFont;
     display: flex;
     align-items: center;
     justify-content: center;
 } 
-
 .li_item {
     margin-right: 100px;
 }
@@ -32,7 +50,30 @@ li {
 }
 
 /* 
-.container {
-    display: flex;
-    width: 25em;
-} */
+.verticalLine {
+    position: fixed; 
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: red;
+    z-index: -1;
+}
+
+#line1 {
+    left: 50px;
+}
+
+#line2 {
+    left: 70px;
+}
+
+#line3 {
+    right: 50px;
+}
+
+#line4 {
+    right: 70px;
+} 
+
+*/
+

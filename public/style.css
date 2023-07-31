@@ -1,17 +1,25 @@
-html, body {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body * {
+/* body * {
     border: 1px solid red;
+} */
+
+
+button#addButton {
+    font-family: techFont; 
+    background-color: black; 
+    color: white; 
+    padding: 10px 22px 10px 22px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    transition: all 0.3s ease; 
+}
+button#addButton:hover {
+    background-color: #474949; 
+}
+button#addButton:active {
+    background-color: #333333;
+    transform: translateY(3px); 
 }
 
 @font-face {
@@ -19,40 +27,56 @@ body * {
     src: url(../fonts/VCR_OSD_MONO_1.001.ttf);
 }
 
+:root {
+    --header-height: 3.5em;
+    --footer-height: 3em
+}
+
 .container {
     border: 1px solid blue;
     flex-direction: column;
-
     display: flex;
-    height: 100vh;
-    
+    overflow: scroll;
     justify-content: space-between;
-    /* width:60%;
-    margin: 0 auto; */
 }
+
 .tasksList{
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 .tasksList-row{
     width: 70%;
-    height: 80px;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .inputSection{
-    height: 10%;
-    /* position: fixed; */
-    bottom: 0
+    width: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    height: var(--footer-height);
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid black;
 }
 
-header{
-    text-align:center;
-}
+header {
+    display: flex;
+    height: var(--header-height);
+    align-items: center;
+    position: fixed;  
+    top: 0;        
+    width: 100%;    
+    z-index: 1000;   
+    border-bottom: 1px solid black;
+    background-color: white;
+}   
 
 h1 {
     color: black;
@@ -62,6 +86,7 @@ body {
     font-family: techFont;
     background-color: white;
 }
+
 li {
     font-family: techFont;
     display: flex;
@@ -74,40 +99,13 @@ ul {
     list-style-type: none;
 }
 
-
-.box {
-    height: 70px;
-    width: 70px;
-    padding: 20px;
-    border: 10px solid black;
-    background-color: blue;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-
-/* 
-.verticalLine {
-    position: fixed; 
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background-color: red;
-    z-index: -1;
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
 }
-
-#line1 {
-    left: 50px;
-}
-
-#line2 {
-    left: 70px;
-}
-
-#line3 {
-    right: 50px;
-}
-
-#line4 {
-    right: 70px;
-} 
-
-*/
-

@@ -3,20 +3,31 @@ const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
 async function editTask(body) {
-    const { taskId } = body;
+    console.log("Updating task and redirecting to HomePage");
+    updateParams = {
+        descricao: body.descricao_da_tarefa,
+        marcado: body.isCheck,
+    };
+    const updateTask = await taskModel.updateOne(
+        { _id: body.taskId },
+        updateParams
+    );
+    console.log("Task UPDATED: ", updateTask);
+    return { statusCode: 302, Location: "/" };
+}
 
-    if (body?.descricao_da_tarefa) {
-        updateParams = {
-            descricao: body.descricao_da_tarefa,
-            marcado: body.isCheck,
-        };
-        const updateTask = await taskModel.updateOne(
-            { _id: taskId },
-            updateParams
-        );
-        console.log("Task UPDATED: ", updateTask);
-        return { statusCode: 302, Location: "/" };
+async function getTaskById(body) {
+    const { taskId } = body;
+    console.log("!!GETtaskById recebeu o body:", body);
+
+    if (
+        !body.taskId.includes("script.js") &&
+        !body.taskId.includes("style.css")
+    ) {
+        task = await taskModel.findById(taskId);
+        console.log("###### A TASK PEGUEI VC SAFADA: ", task);
     }
+
     const statusCode = 200;
     const ContentType = "text/html";
     let responseData;
@@ -28,7 +39,7 @@ async function editTask(body) {
 async function getAllTasks() {
     try {
         const tasksList = await taskModel.find();
-        console.log("ABRIU o site peguei as tasks: ", tasksList);
+        console.log("GetAllTasks controller recuperou as tasks: ", tasksList);
 
         const htmlRendered = await viewRenderer.renderIndexView(tasksList);
         return { ContentType: "text/html", responseData: htmlRendered };
@@ -57,7 +68,7 @@ async function createTask(body) {
 async function deleteTask(body) {
     const taskId = body.taskId;
     console.log("Vou apagar a task de id: ", taskId);
-    
+
     const deletedTask = await taskModel.deleteOne({ _id: taskId });
     console.log("Task DELETED: ", deletedTask);
 
@@ -66,6 +77,7 @@ async function deleteTask(body) {
 
 module.exports = {
     getAllTasks,
+    getTaskById,
     createTask,
     editTask,
     deleteTask,

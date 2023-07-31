@@ -10,25 +10,21 @@
 <body>  
      
     <div class="verticalLine" id="line1"></div>
-    <div class="verticalLine" id="line2"></div>
-
-    <div class="verticalLine" id="line3"></div>
-    <div class="verticalLine" id="line4"></div>
 
     <% if (typeof tasksList === "string") { %>
 
         <section id="taskUpdate">
-            <h1>Atualize a descricao da task: </h1>
+            <h1>Atualize a task: </h1>
 
             <form method="POST" action="/task/<%= tasksList %>">
-                <input type="hidden" name="_method" value="PUT">
+                <input id="taskCheckBox" type="checkbox" name="isCheck" value=boolean <% if(tasksList.marcado) { %> checked <% } %> >
                 <input type="text" name="descricao_da_tarefa" id="task" value= <%=tasksList %>>
                 <button id="addButton" type="submit">Atualizar</button>
+                <input type="hidden" name="_method" value="PUT">
             </form>
         </section>
 
     <% } else { %> 
-
         <div class="container">
             <header>
                 <h1>Simple To-Do List! </h1>
@@ -45,8 +41,8 @@
                                 <div id="taskButtons">
                                     <a href="/task/<%= tasksList[i]._id %>">Editar</a>
                                     <form method="POST" action="/task/<%= tasksList[i]._id %>">
-                                        <input type="hidden" name="_method" value="DELETE">
                                         <input type="submit" value="Apagar">
+                                        <input type="hidden" name="_method" value="DELETE">
                                     </form>
                                 </div>
                             </li>
@@ -61,7 +57,6 @@
                 </form>
             </div>
         </div>
-        <!-- <div class="box"></div> -->
     <% } %>
     
   

@@ -1,5 +1,6 @@
 const {
     getAllTasks,
+    getTaskById,
     createTask,
     editTask,
     deleteTask,
@@ -12,7 +13,10 @@ const querystring = require("querystring");
 
 async function roteador(req) {
     const { body, method } = await requestMiddleware(req);
-    console.log("NEW requisition got from middleware", { body, method });
+    console.log("Router got a requisition from requestMiddleware", {
+        body,
+        method,
+    });
 
     if (method === "POST") {
         return createTask(body);
@@ -32,7 +36,7 @@ async function roteador(req) {
         } else if (req.url === "/") {
             return await getAllTasks(req);
         } else if (req.url.includes("/task/")) {
-            return await editTask(body);
+            return await getTaskById(body);
         }
     }
 }
@@ -50,6 +54,7 @@ function requestMiddleware(request) {
             });
             request.on("end", () => {
                 body = querystring.parse(body);
+                console.log("!!OLHA o body dentro do middleware: ", body);
                 body.isCheck ? (body.isCheck = true) : (body.isCheck = false);
                 method = body._method ?? request.method;
                 if (request.url.includes("/task/")) {

@@ -21,25 +21,37 @@ button#addButton:active {
     background-color: #333333;
     transform: translateY(3px); 
 }
-
 @font-face {
     font-family: techFont;
     src: url(../fonts/VCR_OSD_MONO_1.001.ttf);
 }
-
 :root {
     --header-height: 3.5em;
-    --footer-height: 3em
+    --footer-height: 3em;
+    --margin-distance-left: 60px;
 }
-
-.container {
-    border: 1px solid blue;
+.verticalLine{
+    height: 100vh;
+    width: 1px;
+    background-color: red;
+    position: fixed;
+    left: var(--margin-distance-left);
+    z-index: 99;
+}
+.verticalLine::after{
+    content: "";
+    height: 100vh;
+    width: 1px;
+    background-color: red;
+    position: fixed;
+    left: 50px;
+}
+.container { /* aqui a gnt controla o H1, lista de tasks, e input*/
+    padding-left: calc(var(--margin-distance-left) + 10px);
     flex-direction: column;
     display: flex;
-    overflow: scroll;
     justify-content: space-between;
 }
-
 .tasksList{
     padding-top: var(--header-height);
     padding-bottom: var(--footer-height);
@@ -48,6 +60,8 @@ button#addButton:active {
     align-items: center;
 }
 .tasksList-row{
+    margin-top: 8px;
+    padding: 0px 10px 0px 10px;
     width: 70%;
     min-height: 80px;
     display: flex;
@@ -63,7 +77,19 @@ button#addButton:active {
     height: var(--footer-height);
     position: fixed;
     bottom: 0;
-    border-top: 1px solid black;
+    /* border-top: 1px solid black; */
+}
+.inputSection .horizontalLine{
+    position: relative;
+} 
+.inputSection .horizontalLine::after{
+    bottom: var(--footer-height) ;
+    left: 0;
+    content: "";
+    position: fixed;
+    width: 100vw;
+    height: 1px;
+    background-color:black;
 }
 
 header {
@@ -73,10 +99,23 @@ header {
     position: fixed;  
     top: 0;        
     width: 100%;    
-    z-index: 1000;   
-    border-bottom: 1px solid black;
+    z-index: 2;  
+    /* border-bottom: 1px solid black; */
     background-color: white;
-}   
+}  
+header .horizontalLine{
+    position: relative;
+} 
+header .horizontalLine::after{
+    top:var(--header-height);;
+    left: 0;
+    content: "";
+    position: fixed;
+    width: 100vw;
+    height: 5px;
+    background-color: black;
+}
+
 
 h1 {
     color: black;

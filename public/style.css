@@ -30,7 +30,7 @@ button#addButton:active {
     --footer-height: 3em;
     --margin-distance-left: 60px;
 }
-.verticalLine{
+/* .verticalLine{
     height: 100vh;
     width: 1px;
     background-color: red;
@@ -45,7 +45,8 @@ button#addButton:active {
     background-color: red;
     position: fixed;
     left: 50px;
-}
+} */
+
 .container { /* aqui a gnt controla o H1, lista de tasks, e input*/
     padding-left: calc(var(--margin-distance-left) + 10px);
     flex-direction: column;

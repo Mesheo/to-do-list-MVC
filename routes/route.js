@@ -60,10 +60,6 @@ function requestMiddleware(request) {
                 if (request.url.includes("/task/")) {
                     body.taskId = request.url.replace("/task/", "");
                 }
-                if (!body.descricao_da_tarefa){
-                    console.log("!!NAO TEM PORRA NENHUAM NA DESCRIÇAO")
-                }
-
                 resolve({ body, method });
             });
         } catch (e) {

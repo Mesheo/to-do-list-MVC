@@ -52,11 +52,17 @@ async function getAllTasks() {
 async function createTask(body) {
     return new Promise(async (resolve, reject) => {
         try {
-            const newTask = await taskModel.create({
-                descricao: body.descricao_da_tarefa,
-                marcado: body.isCheck,
-            });
-            console.log("Nova tarefa CRIADA : ", newTask);
+            if(!body.descricao_da_tarefa){
+                console.log("!!CreateTask Controller cannot create empty task", body);
+                resolve({ statusCode: 302, Location: "/" });
+            }
+            else{
+                const newTask = await taskModel.create({
+                    descricao: body.descricao_da_tarefa,
+                    marcado: body.isCheck,
+                });
+                console.log("Nova tarefa CRIADA : ", newTask);
+            }
             resolve({ statusCode: 302, Location: "/" });
         } catch (e) {
             console.log("Azedou: ", e);

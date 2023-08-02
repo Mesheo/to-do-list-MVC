@@ -11,9 +11,9 @@ const script = require("../controllers/scriptController");
 const font = require("../controllers/fontController");
 const querystring = require("querystring");
 
-async function roteador(req) {
+async function router(req) {
     const { body, method } = await requestMiddleware(req);
-    console.log("Router got a requisition from requestMiddleware", {
+    console.log("--Router ->  Requisition from requestMiddleware recieved", {
         body,
         method,
     });
@@ -41,7 +41,7 @@ async function roteador(req) {
     }
 }
 
-module.exports = roteador;
+module.exports = router;
 
 function requestMiddleware(request) {
     return new Promise((resolve, reject) => {

@@ -3,7 +3,7 @@ const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
 async function editTask(body) {
-    console.log("Updating task and redirecting to HomePage: ", body);
+    console.log("--EditTask ->  CONTROLLER requesting change within task info to the MODEL");
     updateParams = {
         descricao: body.descricao_da_tarefa,
         marcado: body.isCheck,
@@ -12,20 +12,28 @@ async function editTask(body) {
         { _id: body.taskId },
         updateParams
     );
-    console.log("Task UPDATED: ", updateTask);
+    console.log("-EditTask ->  Task updated: ", updateTask);
     return { statusCode: 302, Location: "/" };
 }
 
 async function getTaskById(body) {
-    const { taskId } = body;
-    console.log("!!GETtaskById recebeu o body:", body);
-
-    if (
-        !body.taskId.includes("script.js") &&
-        !body.taskId.includes("style.css")
-    ) {
-        task = await taskModel.findById(taskId);
-        console.log("###### A TASK PEGUEI VC SAFADA: ", task);
+    try{    
+        const { taskId } = body;
+        console.log(
+            "--GetTaskById ->  CONTROLLER requesting info about task to the MODEL"
+        );
+        if (
+            !body.taskId.includes("script.js") &&
+            !body.taskId.includes("style.css")
+        ) {
+            task = await taskModel.findById(taskId);
+            console.log("--GetTaskById ->  Task recieved ", tasksList);
+        }
+    }catch(e){
+        console.log(
+            "!--GetAllTasks! ->  Something went wrong trying to fetch database info: ",
+            e
+        );
     }
 
     const statusCode = 200;
@@ -38,13 +46,19 @@ async function getTaskById(body) {
 
 async function getAllTasks() {
     try {
+        console.log(
+            "--GetAllTasks ->  CONTROLLER requesting info about tasks to the MODEL "
+        );
         const tasksList = await taskModel.find();
-        console.log("GetAllTasks controller recuperou as tasks: ", tasksList);
+        console.log("--GetAllTasks ->  Tasks recieved ", tasksList);
 
-        const htmlRendered = await viewRenderer.renderIndexView(tasksList);
-        return { ContentType: "text/html", responseData: htmlRendered };
+        const responseData = await viewRenderer.renderIndexView(tasksList);
+        return { ContentType: "text/html", responseData };
     } catch (e) {
-        console.log("Algo deu errado pegando tasks do banco: ", e);
+        console.log(
+            "!--GetAllTasks! ->  Something went wrong trying to fetch database info: ",
+            e
+        );
         return { statusCode: 500, responseData: e };
     }
 }
@@ -52,31 +66,50 @@ async function getAllTasks() {
 async function createTask(body) {
     return new Promise(async (resolve, reject) => {
         try {
-            if(!body.descricao_da_tarefa){
-                console.log("!!CreateTask Controller cannot create empty task", body);
+            console.log(
+                "--CreateTask ->  CONTROLLER attempting to create new task inside the MODEL "
+            );
+            if (!body.descricao_da_tarefa) {
+                console.log(
+                    "!--CreateTask! ->  Controller cannot create empty task",
+                    body
+                );
                 resolve({ statusCode: 302, Location: "/" });
-            }
-            else{
+            } else {
                 const newTask = await taskModel.create({
                     descricao: body.descricao_da_tarefa,
                     marcado: body.isCheck,
                 });
-                console.log("Nova tarefa CRIADA : ", newTask);
+                console.log(
+                    "--CreateTask ->  New task successfully created: ",
+                    newTask
+                );
             }
             resolve({ statusCode: 302, Location: "/" });
         } catch (e) {
-            console.log("Azedou: ", e);
+            console.log(
+                "!--CreateTask! -> Something went wrong trying to create new item on the database: ",
+                e
+            );
             reject(e);
         }
     });
 }
 
 async function deleteTask(body) {
-    const taskId = body.taskId;
-    console.log("Vou apagar a task de id: ", taskId);
-
-    const deletedTask = await taskModel.deleteOne({ _id: taskId });
-    console.log("Task DELETED: ", deletedTask);
+    console.log(
+        `--DeleteTask ->  CONTROLLER attempting to delete task ${body.taskId} from the MODEL `
+    );
+    try {
+        const taskId = body.taskId;
+        const deletedTask = await taskModel.deleteOne({ _id: taskId });
+        console.log("--DeleteTask ->  Task deleted: ", deletedTask);
+    } catch (e) {
+        console.log(
+            `!--DeleteTask! ->  Something went wrong when attempting to delete task ${body.taskId} from the database`,
+            e
+        );
+    }
 
     return { statusCode: 302, Location: "/" };
 }

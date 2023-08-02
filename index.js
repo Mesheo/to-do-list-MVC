@@ -1,5 +1,5 @@
 const http = require("http");
-const roteador = require("./routes/route.js");
+const router = require("./routes/route.js");
 const connectToDb = require("./database/db.js");
 const port = 3000;
 
@@ -27,7 +27,7 @@ function startServer() {
             `| Método da solicitação: ${req.method} | URL da chamada: ${req.url}`
         );
 
-        const { statusCode, Location, ContentType, responseData  } = await roteador(req);
+        const { statusCode, Location, ContentType, responseData  } = await router(req);
 
         responseMiddleware(res, {
             statusCode,

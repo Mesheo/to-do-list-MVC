@@ -88,24 +88,3 @@ module.exports = {
     editTask,
     deleteTask,
 };
-
-function requestMiddleware(request) {
-    return new Promise((resolve, reject) => {
-        try {
-            let inputData = "";
-            request.on("data", (data) => {
-                inputData += data.toString();
-            });
-            request.on("end", () => {
-                inputData = querystring.parse(inputData);
-                inputData.isCheck
-                    ? (inputData.isCheck = true)
-                    : (inputData.isCheck = false);
-                resolve(inputData);
-            });
-        } catch (e) {
-            console.log("Algo deu errado lendo o input: ", e);
-            reject(e);
-        }
-    });
-}

@@ -3,7 +3,7 @@ const viewRenderer = require("../utils/viewRenderer");
 const taskModel = require("../models/Task");
 
 async function editTask(body) {
-    console.log("Updating task and redirecting to HomePage");
+    console.log("Updating task and redirecting to HomePage: ", body);
     updateParams = {
         descricao: body.descricao_da_tarefa,
         marcado: body.isCheck,
@@ -32,7 +32,7 @@ async function getTaskById(body) {
     const ContentType = "text/html";
     let responseData;
 
-    responseData = await viewRenderer.renderIndexView(taskId);
+    responseData = await viewRenderer.renderIndexView(task);
     return { responseData, statusCode, ContentType };
 }
 

@@ -22,10 +22,7 @@ async function responseMiddleware(
 function startServer() {
     const server = http.createServer(async (req, res) => {
         vezes += 1;
-        console.log(
-            `\n---> Função de callback chamada pela ${vezes}° vez`,
-            `| Método da solicitação: ${req.method} | URL da chamada: ${req.url}`
-        );
+        console.log(`\nINFO - [${req.method} ${req.url}] Server Callback Function: ${vezes}° call received from browser`)
 
         const { statusCode, Location, ContentType, responseData  } = await router(req);
 
@@ -42,7 +39,7 @@ function startServer() {
     });
 
     server.listen(port, () => {
-        console.log(`Servidor rodando na porta: http://localhost:${port}`);
+        console.log(`INFO - [SERVER] Server is running on port: http://localhost:${port}`);
     });
 }
 

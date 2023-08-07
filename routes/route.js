@@ -11,13 +11,38 @@ const script = require("../controllers/scriptController");
 const font = require("../controllers/fontController");
 const querystring = require("querystring");
 
+function requestMiddleware(request) {
+    return new Promise((resolve, reject) => {
+        try {
+            let method = "";
+            let body = "";
+
+            request.on("data", (data) => {
+                body += data.toString();
+            });8
+            request.on("end", () => {
+                body = querystring.parse(body);
+                console.log("INFO - [Middleware] RequestMiddleware: Pre-processing request body", JSON.stringify(body))
+                body.isCheck ? (body.isCheck = true) : (body.isCheck = false);
+                method = body._method ?? request.method;
+                if (request.url.includes("/task/")) {
+                    body.taskId = request.url.replace("/task/", "");
+                }
+                resolve({ body, method });
+            });
+        } catch (e) {
+            console.log("Algo deu errado lendo o input: ", e);
+            reject(e);
+        }
+    });
+}
+
 async function router(req) {
     const { body, method } = await requestMiddleware(req);
-    console.log("--Router ->  Requisition from requestMiddleware recieved", {
-        body,
+    console.log("INFO - [Router] Router: Received body proccessed from RequestMiddleware", {
+        body: JSON.stringify(body),
         method,
-    });
-
+    })
     if (method === "POST") {
         return createTask(body);
     } else if (method === "PUT") {
@@ -43,28 +68,3 @@ async function router(req) {
 
 module.exports = router;
 
-function requestMiddleware(request) {
-    return new Promise((resolve, reject) => {
-        try {
-            let method = "";
-            let body = "";
-
-            request.on("data", (data) => {
-                body += data.toString();
-            });
-            request.on("end", () => {
-                body = querystring.parse(body);
-                console.log("!!OLHA o body dentro do middleware: ", body);
-                body.isCheck ? (body.isCheck = true) : (body.isCheck = false);
-                method = body._method ?? request.method;
-                if (request.url.includes("/task/")) {
-                    body.taskId = request.url.replace("/task/", "");
-                }
-                resolve({ body, method });
-            });
-        } catch (e) {
-            console.log("Algo deu errado lendo o input: ", e);
-            reject(e);
-        }
-    });
-}

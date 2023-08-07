@@ -6,7 +6,7 @@ const connectToDb = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
-    .then(()=> {console.log("MongoDB conectado!")})
+    .then(()=> {console.log("INFO - [DATABASE] MongoDB succesfully connected!")})
     .catch(e => console.log("Deu ruim a conexão no banco!: ", e));
 }
 

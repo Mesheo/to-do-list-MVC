@@ -1,7 +1,8 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
 
 const connectToDb = () => {
-    mongoose.connect("mongodb+srv://root:admin@todolistcluster.qtf6099.mongodb.net/?retryWrites=true&w=majority",
+    mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,

@@ -4,11 +4,12 @@
   "description": "simple to-do list to explore MVC architecture and deployment of a fullstack application",
   "main": "index.js",
   "scripts": {
-    "start": "node index"  
+    "start": "node index"
   },
   "author": "Michel Ledig",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "mongoose": "^7.3.0"
   }

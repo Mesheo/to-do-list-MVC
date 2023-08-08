@@ -1,3 +1,5 @@
+![image](https://github.com/Mesheo/to-do-list-MVC/assets/71408872/322af28e-bcca-4874-9866-5254f7fee179)
+
 ## Introdução
 Esse projeto é um app de estudo construído com Vanilla JS (Javascript sem frameworks) e arquitetura MVC (Model View Controller).
 O objetivo é ter contato na prática com uma arquitetura de software amplamente usada em aplicações web e que pode ser porta de entrada para entender arquiteturas mais complexas no futuro.            O uso do Javascript puro na implementação também teve o objetivo parecido de aprofundar o conhecimento de etapas comuns no desenvolvimento web server-side. Para que assim, ao usar um framework potente, as abstrações não prejudiquem meu controle e visão do que está acontecendo no código.

@@ -7,9 +7,11 @@ O objetivo é ter contato na prática com uma arquitetura de software amplamente
 O app possui todas as funcionalidades de um **CRUD** (Create, Read, Update, Delete) com persistência dos dados usando **MongoDB** e validação de input
 
 ## Trechos do App
-- Site funcionando
-- ![to-do-listMVC](https://github.com/Mesheo/to-do-list-MVC/assets/71408872/80df2cbf-b6df-4d49-81fe-9dcc25dfaa24)
+- Site funcionando localmente
+  ![to-do-listMVC](https://github.com/Mesheo/to-do-list-MVC/assets/71408872/80df2cbf-b6df-4d49-81fe-9dcc25dfaa24)
 - Logs do servidor
+  ![image](https://github.com/Mesheo/to-do-list-MVC/assets/71408872/ab4086af-19bc-43b6-b85a-134b6a5eac6a)
+
 
 ## Bullet points de aprendizado
 Alguns desafios foram encontrados na implementação de partes simples do código pois com a ausência de framework foi necessário "reeinventar a roda" em alguns momentos mas sinto que com o objetivo de estudo isso me proveu bons frutos uma vez que aprendi melhor várias coisas que superficialmente já conhecia no meu dia a dia. Aqui fica uma lista resumida dos principais pontos de aprenzidado na jornada de criação do app 

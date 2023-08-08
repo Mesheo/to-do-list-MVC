@@ -1,8 +1,6 @@
-![image](https://file.notion.so/f/s/d1932f66-cf8e-414c-bd3c-36c1009c5cc8/Untitled.png?id=f5465d0b-f398-4385-a3ba-42b05ae4d980&table=block&spaceId=ba811436-9e00-4657-80aa-40e7dd541bf3&expirationTimestamp=1691625600000&signature=IxCeKs122k-zC4jmmn6ZwwO1z6fEeTgYX3H0K7E9Wxg&downloadName=Untitled.png)
 ## Introdução
-Esse projeto é um app de estudo construído com Vanilla JS e arquitetura MVC (Model View Controller).
-O objetivo é ter contato na prática com uma arquitetura de software amplamente usada em aplicações web e que pode ser porta de entrada para entender arquiteturas mais complexas no futuro. 
-O uso do Javascript puro na implementação também teve o objetivo parecido de aprofundar o conhecimento de etapas comuns no desenvolvimento web server-side. Para que assim, ao usar um framework potente, as abstrações não prejudiquem meu controle e visão do que está acontecendo no código.
+Esse projeto é um app de estudo construído com Vanilla JS (Javascript sem frameworks) e arquitetura MVC (Model View Controller).
+O objetivo é ter contato na prática com uma arquitetura de software amplamente usada em aplicações web e que pode ser porta de entrada para entender arquiteturas mais complexas no futuro.            O uso do Javascript puro na implementação também teve o objetivo parecido de aprofundar o conhecimento de etapas comuns no desenvolvimento web server-side. Para que assim, ao usar um framework potente, as abstrações não prejudiquem meu controle e visão do que está acontecendo no código.
 
 O app possui todas as funcionalidades de um **CRUD** (Create, Read, Update, Delete) com persistência dos dados usando **MongoDB** e validação de input
 

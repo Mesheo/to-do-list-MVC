@@ -52,7 +52,7 @@
 
             <form method="POST" action="/task/<%= tasksList._id %>">
                 <input id="taskCheckBox" type="checkbox" name="isCheck" value=boolean <% if(tasksList.marcado) { %> checked <% } %> >
-                <input type="text" name="descricao_da_tarefa" id="task" value= <%=tasksList.descricao %>>
+                <input type="text" name="descricao_da_tarefa" id="task" value= "<%= tasksList.descricao %>">
                 <button id="addButton" type="submit">Atualizar</button>
                 <input type="hidden" name="_method" value="PUT">
             </form>

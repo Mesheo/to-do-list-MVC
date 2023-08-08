@@ -39,7 +39,7 @@ function startServer() {
     });
 
     server.listen(port, () => {
-        console.log(`INFO - [SERVER] Server is running on port: http://localhost:${port}`);
+        console.log(`INFO - [SERVER] Server is running on port: http://localhost:${port}  `);
     });
 }
 

@@ -28,12 +28,14 @@ Alguns desafios foram encontrados na implementação de partes simples do códig
 
 ## Rode na sua máquina!
 ```bash
-# Clonar o repositorio
+# Clone o repositorio
 git clone https://github.com/Mesheo/to-do-list-MVC.git && cd to-do-list-MVC
 
-# instalando dependências 
+# instale os modulos do Node
 npm i
 
-# Comando para subir o servidor local
+# substitua as credenciais em "database/db.js" pelas chaves do seu banco
+
+# Suba o servidor local
 npm run start
 ```

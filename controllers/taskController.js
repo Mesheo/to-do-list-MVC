@@ -43,7 +43,7 @@ async function getAllTasks() {
     try {
         console.log(`INFO - [Controller -> Model] GetAllTasks: Requesting info about tasks to the MODEL...`)
         const tasksList = await taskModel.find();
-        console.log(`INFO - [Controller] GetAllTasks: Tasks recieved ${tasksList}`)
+        console.log("INFO - [Controller] GetAllTasks: Tasks recieved ",tasksList)
         console.log(`INFO - [Controller -> View] GetAllTasks: Sending tasks info to the View`)
         const responseData = await viewRenderer.renderIndexView(tasksList);
         return { ContentType: "text/html", responseData };

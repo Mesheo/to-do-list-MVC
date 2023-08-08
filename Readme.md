@@ -1,8 +1,8 @@
 ## Introdução
-Esse projeto foi construída com Vanilla JS e arquitetura MVC (Model View Controller).
-A intenção é ter contato na prática com essa arquitetura de software que suporta boa parte das aplicações web e pode ser usada para entender arquiteturas mais complexas no futuro. 
+Esse projeto é um app de estudo construída com Vanilla JS e arquitetura MVC (Model View Controller).
+O objetivo é ter contato na prática com essa arquitetura de software que suporta boa parte das aplicações web e pode ser usada para entender arquiteturas mais complexas no futuro. 
 O uso do Javascript puro na implementação também teve o objetivo parecido de aprofundar o conhecimento de etapas comuns no desenvolvimento web server-side. Para que assim, ao usar um framework potente, as abstrações não prejudiquem meu controle e visão do que está acontecendo no código.
-O app possui todas as funcionalidades de um CRUD básico com persistência dos dados usando MongoDB e validação de input
+O app possui todas as funcionalidades de um **CRUD** (Create, Read, Update, Delete) básico com persistência dos dados usando **MongoDB** e validação de input
 
 ## Trechos do App
 - Site funcionando
